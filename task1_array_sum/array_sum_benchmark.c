@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <inttypes.h>
 #include <pthread.h>
 #include <time.h>
 
@@ -26,6 +27,14 @@ struct thread_data {
     int thread_id;
     uint64_t result;
 };
+
+// simple xorshift64* prng
+static uint64_t xorshift64(uint64_t *s) {
+    *s ^= *s >> 12;
+    *s ^= *s << 25;
+    *s ^= *s >> 27;
+    return *s * UINT64_C(2685821657736338717);
+}
 
 // Get current time in milliseconds
 static double get_time_ms(void) {
@@ -122,9 +131,10 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // Initialize array with simple values (0 to 99) to prevent overflow
+    // Initialize array with pseudorandom values using xorshift64
+    uint64_t seed = 0x5eed5eed12345678ULL;
     for (size_t i = 0; i < n; i++) {
-        array[i] = i % 100;
+        array[i] = xorshift64(&seed);
     }
 
     printf("Calculating expected result...\n");

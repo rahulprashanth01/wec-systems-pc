@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.22)
+project(forest_fire C)
+add_executable(forest_fire forest_fire.c)
+target_compile_features(forest_fire PRIVATE c_std_11)
+target_compile_options(forest_fire PRIVATE -O3 -Wall -Wextra -Werror)
+target_link_libraries(forest_fire PRIVATE EGL GLESv3 log)
