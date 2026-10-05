@@ -1,18 +1,5 @@
-/*
- * Task III - Forest fire simulation using OpenGL ES 3.1 compute shaders
- *
- * This runs entirely on the GPU via EGL (no window needed).
- * Uses EGL_KHR_surfaceless_context if available, otherwise falls back
- * to a tiny 1x1 pbuffer surface.
- *
- * The simulation grid is stored in two SSBOs that ping-pong between epochs.
- * A third SSBO holds an atomic counter for tracking how many cells are
- * still burning (used for termination).
- *
- * Cross-compile with Android NDK:
- *   $NDK/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android24-clang \
- *       -O3 -std=c11 forest_fire.c -o forest_fire -lEGL -lGLESv3 -llog
- */
+// Task III - Forest fire simulation using OpenGL ES 3.1 compute shaders
+
 #include <EGL/egl.h>
 #include <GLES3/gl31.h>
 #include <stdio.h>
